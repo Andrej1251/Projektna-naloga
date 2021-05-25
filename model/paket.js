@@ -10,43 +10,47 @@ exports.ClassPaket =class Paket{
     }
 };
 exports.insert =function(data){
-    con.connect(function(err) {
-        var sql = "INSERT INTO paket (Pošiljatelj,Teža,Cena) VALUES ('"+data.Pošiljatelj+"', '"+data.Teža+"', '"+data.Cena+"')"
-        con.query(sql, function (err, result) {
-            if (err) throw err
-            var sql = "SELECT LAST_INSERT_ID() as data"
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "INSERT INTO paket (Pošiljatelj,Teža,Cena) VALUES ('"+data.Pošiljatelj+"', '"+data.Teža+"', '"+data.Cena+"')"
             con.query(sql, function (err, result) {
-                if (err) throw err
-                return result[0].data
+                if (err) return reject(err)
+                return resolve(result)
             });
         });
-    });
+    })
 }
 exports.selectAll =function(){
-    con.connect(function(err) {
-        var sql = "SELECT * FROM paket "
-        con.query(sql, function (err, result) {
-            if (err) throw err
-            return result
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "SELECT * FROM paket "
+            con.query(sql, function (err, result) {
+                if (err) return(reject(err))
+                return resolve(result)
+            });
         });
-    });
+    })
 }
 exports.delete=function (id){
-    con.connect(function(err) {
-        var sql = "DELETE FROM paket WHERE ID_Paket="+id+";"
-        con.query(sql, function (err, result) {
-            if (err) throw err
-            return result
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "DELETE FROM paket WHERE ID_Paket="+id+";"
+            con.query(sql, function (err, result) {
+                if (err) return(reject(err))
+                return resolve(result)
+            });
         });
-    });
+    })
 }
 exports.update=function (data){
-    con.connect(function(err) {
-        var sql = "UPDATE paket SET ID_Paket="+data.id_Paket+", Pošiljatelj= '"+data.Pošiljatelj+"', Cena='"+data.Cena+
-        "' WHERE ID_Paket="+data.id_Paket+";"
-        con.query(sql, function (err, result) {
-            if (err) throw err
-            return result
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "UPDATE paket SET ID_Paket="+data.id_Paket+", Pošiljatelj= '"+data.Pošiljatelj+"', Cena='"+data.Cena+
+            "' WHERE ID_Paket="+data.id_Paket+";"
+            con.query(sql, function (err, result) {
+                if (err) return(reject(err))
+                return resolve(result)
+            });
         });
-    });
+    })
 }

@@ -10,43 +10,47 @@ exports.ClassNaslov =class Naslov {
     }
 };
 exports.insert =function(data){
-    con.connect(function(err) {
-        var sql = "INSERT INTO naslov (Ulica,Hišna_številka,TK_posta) VALUES ('"+data.Ulica+"', '"+data.Hišna_številka+"', '"+data.TK_posta+"')"
-        con.query(sql, function (err, result) {
-            if (err) throw err
-            var sql = "SELECT LAST_INSERT_ID() as data"
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "INSERT INTO naslov (Ulica,Hišna_številka,TK_posta) VALUES ('"+data.Ulica+"', '"+data.Hišna_številka+"', '"+data.TK_posta+"')"
             con.query(sql, function (err, result) {
-                if (err) throw err
-                return result[0].data
+                if (err) return reject(err)
+                return resolve(result)
             });
         });
-    });
+    })
 }
 exports.selectAll =function(){
-    con.connect(function(err) {
-        var sql = "SELECT * FROM naslov"
-        con.query(sql, function (err, result) {
-            if (err) throw err
-            return result
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "SELECT * FROM naslov"
+            con.query(sql, function (err, result) {
+                if (err) return(reject(err))
+                return resolve(result)
+            });
         });
-    });
+    })
 }
 exports.delete=function (id){
-    con.connect(function(err) {
-        var sql = "DELETE FROM naslov WHERE ID_Naslov="+id+";"
-        con.query(sql, function (err, result) {
-            if (err) throw err
-            return result
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "DELETE FROM naslov WHERE ID_Naslov="+id+";"
+            con.query(sql, function (err, result) {
+                if (err) return(reject(err))
+                return resolve(result)
+            });
         });
-    });
+    })
 }
 exports.update=function (data){
-    con.connect(function(err) {
-        var sql = "UPDATE naslov SET ID_Naslov="+data.ID_Naslov+", Ulica= '"+data.Ulica+"', Hišna_številka='"+data.Hišna_številka+"', TK_posta='"+data.TK_posta+
-        "' WHERE ID_Naslov="+data.ID_Naslov+";"
-        con.query(sql, function (err, result) {
-            if (err) throw err
-            return result
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "UPDATE naslov SET ID_Naslov="+data.ID_Naslov+", Ulica= '"+data.Ulica+"', Hišna_številka='"+data.Hišna_številka+"', TK_posta='"+data.TK_posta+
+            "' WHERE ID_Naslov="+data.ID_Naslov+";"
+            con.query(sql, function (err, result) {
+                if (err) return(reject(err))
+                return resolve(result)
+            });
         });
-    });
+    })
 }

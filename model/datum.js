@@ -9,44 +9,47 @@ exports.ClassDatum =class Datum{
     }
 };
 exports.insert = function(data){
-    con.connect(function(err) {
-        var sql = "INSERT INTO datum (DatumPrejetja, DatumPoslanosti) VALUES ('"+data.DatumPrejetja+"', '"+data.DatumPoslanosti+"')"
-        con.query(sql, function (err, result) {
-            if (err) throw err
-            var sql = "SELECT LAST_INSERT_ID() as data;"
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "INSERT INTO datum (DatumPrejetja, DatumPoslanosti) VALUES ('"+data.DatumPrejetja+"', '"+data.DatumPoslanosti+"')"
             con.query(sql, function (err, result) {
-                if (err) throw err
-                return result[0].data
+                if (err) return reject(err)
+                return resolve(result);
             });
         });
-    });
+    })
 }
 exports.selectAll =function(){
-    con.connect(function(err) {
-        var sql = "SELECT * FROM datum;"
-        con.query(sql, function (err, result) {
-            if (err) throw err
-            return result;
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "SELECT * FROM datum;"
+            con.query(sql, function (err, result) {
+                if (err) return(reject(err))
+                return resolve(result);
+            });
         });
-    });
+    })
 }
 exports.delete=function (id){
-    con.connect(function(err) {
-        var sql = "DELETE FROM datum WHERE id_Datum="+id+";"
-        con.query(sql, function (err, result) {
-            if (err) throw err
-            return result
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "DELETE FROM datum WHERE id_Datum="+id+";"
+            con.query(sql, function (err, result) {
+                if (err) return(reject(err))
+                return resolve(result)
+            });
         });
-        
-    });
+    })
 }
 exports.update=function (data){
-    con.connect(function(err) {
-        var sql = "UPDATE datum SET id_Datum="+data.ID_Datum+", DatumPrejetja= '"+data.DatumPrejetja+"', DatumPoslanosti='"+data.DatumPoslanosti+
-        "' WHERE id_Datum="+data.ID_Datum+";"
-        con.query(sql, function (err, result) {
-            if (err) throw err
-            return result
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "UPDATE datum SET id_Datum="+data.ID_Datum+", DatumPrejetja= '"+data.DatumPrejetja+"', DatumPoslanosti='"+data.DatumPoslanosti+
+            "' WHERE id_Datum="+data.ID_Datum+";"
+            con.query(sql, function (err, result) {
+                if (err) return(reject(err))
+                return  resolve(result)
+            });
         });
-    });
+    })
 }

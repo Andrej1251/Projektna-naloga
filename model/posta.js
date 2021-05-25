@@ -10,43 +10,47 @@ exports.ClassPosta =class Posta{
     }
 };
 exports.insert =function(data){
-    con.connect(function(err) {
-        var sql = "INSERT INTO pošta (Kraj,PoštnaStevilka,TK_Drzava) VALUES ('"+data.Kraj+"', '"+data.PoštnaStevilka+"', '"+data.TK_Drzava+"')"
-        con.query(sql, function (err, result) {
-            if (err) throw err
-            var sql = "SELECT LAST_INSERT_ID() as data"
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "INSERT INTO pošta (Kraj,PoštnaStevilka,TK_Drzava) VALUES ('"+data.Kraj+"', '"+data.PoštnaStevilka+"', '"+data.TK_Drzava+"')"
             con.query(sql, function (err, result) {
-                if (err) throw err
-                return result[0].data
+                if (err) return reject(err)
+                return resolve(result)
             });
         });
-    });
+    })
 }
 exports.selectAll =function(){
-    con.connect(function(err) {
-        var sql = "SELECT * FROM pošta "
-        con.query(sql, function (err, result) {
-            if (err) throw err
-            return result
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "SELECT * FROM pošta "
+            con.query(sql, function (err, result) {
+                if (err) return(reject(err))
+                return resolve(result)
+            });
         });
-    });
+    })
 }
 exports.delete=function (id){
-    con.connect(function(err) {
-        var sql = "DELETE FROM pošta WHERE ID_pošta="+id+";"
-        con.query(sql, function (err, result) {
-            if (err) throw err
-            return result
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "DELETE FROM pošta WHERE ID_pošta="+id+";"
+            con.query(sql, function (err, result) {
+                if (err) return(reject(err))
+                return resolve(result)
+            });
         });
-    });
+    })
 }
 exports.update=function (data){
-    con.connect(function(err) {
-        var sql = "UPDATE pošta SET ID_pošta="+data.ID_pošta+", Kraj= '"+data.Kraj+"', PoštnaStevilka='"+data.PoštnaStevilka+"', TK_Drzava='"+data.TK_Drzava+
-        "' WHERE ID_pošta="+data.ID_pošta+";"
-        con.query(sql, function (err, result) {
-            if (err) throw err
-            return result
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "UPDATE pošta SET ID_pošta="+data.ID_pošta+", Kraj= '"+data.Kraj+"', PoštnaStevilka='"+data.PoštnaStevilka+"', TK_Drzava='"+data.TK_Drzava+
+            "' WHERE ID_pošta="+data.ID_pošta+";"
+            con.query(sql, function (err, result) {
+                if (err) return(reject(err))
+                return resolve(result)
+            });
         });
-    });
+    })
 }
