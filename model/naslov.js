@@ -31,6 +31,29 @@ exports.selectAll =function(){
         });
     })
 }
+
+exports.getElementById =function(id){
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "SELECT * FROM naslov WHERE ID_Naslov="+id+";"
+            con.query(sql, function (err, result) {
+                if (err) return(reject(err))
+                return resolve(result)
+            });
+        });
+    })
+}
+exports.select_FK_posta =function(id){
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "SELECT * FROM naslov WHERE TK_posta="+id+";"
+            con.query(sql, function (err, result) {
+                if (err) return(reject(err))
+                return resolve(result)
+            });
+        });
+    })
+}
 exports.delete=function (id){
     return new Promise((resolve, reject) => {
         con.connect(function(err) {

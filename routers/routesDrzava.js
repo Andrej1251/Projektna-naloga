@@ -28,6 +28,17 @@ router.delete("/", async (req, res) => {
 		res.send({ error: "Error: [id]"+e })
 	}
 })
+
+//get element by id
+router.post("/id", async (req, res) => {
+	try{
+		var obj = req.body;
+		res.send(await Drzava.getElementByID(obj[0]))
+	} catch (e){
+		res.status(404)
+		res.send({ error: "Error '[drzava,kratica]': "+e })
+	}
+})
 //update
 router.patch("/", async (req, res) => {
 	try{

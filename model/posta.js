@@ -31,6 +31,29 @@ exports.selectAll =function(){
         });
     })
 }
+exports.selectByTK_Drzava =function(id){
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "SELECT * FROM pošta WHERE TK_Drzava="+id+";"
+            con.query(sql, function (err, result) {
+                if (err) return(reject(err))
+                return resolve(result)
+            });
+        });
+    })
+}
+
+exports.getElementByID =function(id){
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "SELECT * FROM pošta WHERE ID_pošta="+id+";"
+            con.query(sql, function (err, result) {
+                if (err) return(reject(err))
+                return resolve(result)
+            });
+        });
+    })
+}
 exports.delete=function (id){
     return new Promise((resolve, reject) => {
         con.connect(function(err) {

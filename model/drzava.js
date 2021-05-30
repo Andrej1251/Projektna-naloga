@@ -30,6 +30,18 @@ exports.selectAll =function(){
         });
     })
 }
+exports.getElementByID =function(id){
+    return new Promise((resolve, reject) => {
+        con.connect(function(err) {
+            var sql = "SELECT * FROM država WHERE ID_Država="+id+";"
+            con.query(sql, function (err, result) {
+                if (err) return(reject(err))
+                return resolve(result)
+            });
+        });
+    })
+}
+
 exports.delete=function (id){
     return new Promise((resolve, reject) => {
         con.connect(function(err) {

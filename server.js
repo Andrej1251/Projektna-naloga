@@ -2,7 +2,7 @@ const http = require('http');
 const express = require('express')
 const path = require('path')
 var console = require('console');
-const routesDatum = require("./routers/routesDatum")
+
 const routesDrzava = require("./routers/routesDrzava")
 const routesNarocila = require("./routers/routesNarocila")
 const routesNaslov = require("./routers/routesNaslov")
@@ -22,10 +22,14 @@ app.use(function(req, res, next) {
 
     next();
 });
-app.use('/datum', routesDatum );
 app.use('/drzava', routesDrzava );
+app.use('/narocila', routesNarocila );
+app.use('/naslov', routesNaslov);
+app.use('/paket', routesPaket );
+app.use('/posta', routesPosta );
+app.use('/uporabnik', routesUporabnik );
 
-app.listen(3000,()=>{
+app.listen(5000,()=>{
     console.log('server is working')
 })
 
