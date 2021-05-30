@@ -47,8 +47,9 @@ exports.delete=function (id){
 exports.update=function (data){
     return new Promise((resolve, reject) => {
         con.connect(function(err) {
-            var sql = "UPDATE naročila SET ID_Naročila="+data.ID_Naročila+", TK_Uporabnik= '"+data.TK_Uporabnik+"', TK_Naslov_posiljatelja='"+data.TK_Naslov_posiljatelja+"', Active='"+data.Active+"', TK_Naslov_posiljatelja='"+data.DatumPrejetja+"', TK_Naslov_posiljatelja='"+data.DatumPrejetja+
-            "' WHERE ID_Naročila="+data.ID_Naročila+" and TK_Uporabnik = '"+data.TK_Uporabnik+"' and TK_Naslov_posiljatelja = '"+data.TK_Naslov_posiljatelja+"';"
+            var sql = "UPDATE naročila SET Active='"+data.Active+
+            "' WHERE ID_Naročila="+data.ID_Naročila+";"
+            console.log(sql)
             con.query(sql, function (err, result) {
                 if (err) return(reject(err))
                 return resolve(result)
