@@ -19,9 +19,10 @@ router.get("/", async (req, res) => {
 	res.json(await Narocila.selectAll())
 })
 //delete element
-router.delete("/:id", async (req, res) => {
+router.delete("/", async (req, res) => {
 	try{
-		res.send(await Narocila.delete(id))
+		var obj = req.body;
+		res.send(await Narocila.delete(obj[0]))
 	} catch (e){
 		res.status(404)
 		res.send({ error: "Error: [id]"+e })
