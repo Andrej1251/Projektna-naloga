@@ -16,7 +16,6 @@ router.post("/", async (req, res) => {
 })
 //get all elements
 router.get("/", async (req, res) => {
-	console.log("aaaa")
 	res.json(await Uporabnik.selectAll())
 })
 //find one user using Uporabniško_ime,Geslo

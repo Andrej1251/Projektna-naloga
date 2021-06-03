@@ -35,11 +35,12 @@ exports.selectAll =function(){
             var sql = "SELECT * FROM uporabnik"
             con.query(sql, function (err, result) {
                 if (err) return(reject(err))
-                return resolve("true")
+                return resolve(result)
             });
         });
     })
 }
+//api outside!!!
 exports.checkEmail=function(id){
     return new Promise((resolve, reject) => {
         con.connect(function(err) {
